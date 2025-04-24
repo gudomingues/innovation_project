@@ -9,10 +9,16 @@
 <body>
 <div class="container mt-4">
     <h1>Cadastros</h1>
-    <ul>
-        <li><a href="{% url 'cadastros:produto_add' %}">Adicionar Produto</a></li>
-        <li><a href="{% url 'cadastros:cliente_add' %}">Adicionar Cliente</a></li>
-        <li><a href="{% url 'cadastros:search' %}">Pesquisar Cadastros</a></li>
+    <form method="get" action="{% url 'cadastros:search' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Pesquisar produtos e clientes..." aria-label="Pesquisar">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+    </form>
+    <ul class="list-unstyled">
+        <li><a href="{% url 'cadastros:produto_add' %}" class="btn btn-success mb-2">Adicionar Produto</a></li>
+        <li><a href="{% url 'cadastros:cliente_add' %}" class="btn btn-success mb-2">Adicionar Cliente</a></li>
+        <li><a href="{% url 'cadastros:search' %}" class="btn btn-info mb-2">Pesquisar Cadastros</a></li>
     </ul>
 </div>
 </body>

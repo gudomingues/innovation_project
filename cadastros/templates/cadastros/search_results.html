@@ -10,24 +10,55 @@
 <div class="container mt-4">
     <h1>Resultados da Pesquisa para "{{ query }}"</h1>
 
+    <form method="get" action="{% url 'cadastros:search' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Pesquisar produtos e clientes..." aria-label="Pesquisar">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+    </form>
+
     <h2>Produtos</h2>
     {% if produtos %}
-        <ul>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for produto in produtos %}
-            <li>{{ produto.nome }} - {{ produto.descricao }} - R$ {{ produto.preco }}</li>
+            <div class="col">
+                <div class="card h-100">
+                    {% if produto.imagem %}
+                    <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ produto.nome }}</h5>
+                        <p class="card-text">{{ produto.descricao }}</p>
+                        <p class="card-text"><strong>Preço:</strong> R$ {{ produto.preco }}</p>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>Nenhum produto encontrado.</p>
     {% endif %}
 
-    <h2>Clientes</h2>
+    <h2 class="mt-4">Clientes</h2>
     {% if clientes %}
-        <ul>
-        {% for cliente in clientes %}
-            <li>{{ cliente.nome }} - {{ cliente.email }} - {{ cliente.telefone }}</li>
-        {% endfor %}
-        </ul>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.nome }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.telefone }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     {% else %}
         <p>Nenhum cliente encontrado.</p>
     {% endif %}
